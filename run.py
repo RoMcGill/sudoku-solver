@@ -11,25 +11,32 @@ sudoku_grid = [
     [0, 4, 9, 2, 0, 6, 0, 0, 7],
 ]
 
+
 def solve(sudoku_grid):
     """
-    function to backtrack by calling the function inside its self
-    our completed sudoku grid will be the basecase for the recursion 
+    function to loop through numbers 1 to 9 and call the solve function,
+    if sove function return false, reset current number to zero and try again
     """
     find = find_zero(sudoku_grid)
-    #if this is true the grid has been solved 
+# if this is true the grid has been solved as the function cannot find zero
     if not find:
         return True
     else:
         row, col = find
-
-    for i in range(1,10):
+# loop throught 1 to 9, inputing each number
+    for i in range(1, 10):
+# if number is possible in position add it to the grid
         if correct(sudoku_grid, i, (row, col)):
             sudoku_grid[row][col] = i
-            
-            if solve (sudoku_grid):
+# after possible num added, call solve function to check if correct
+            if solve(sudoku_grid):
                 return True
-            sudoku_grid[row][col] = 0 
+# if the solve function dose not return true reset the last number
+            sudoku_grid[row][col] = 0
+# num = zero, find zero function will run again and input more possible nums
+    return False
+
+
 def correct(sudoku_grid, num, pos):
     """
     finds if the current game is correct or valid
@@ -45,11 +52,11 @@ def correct(sudoku_grid, num, pos):
             return False
 
     # check square
-    square_x = pos [1] // 3
-    square_y = pos [0] // 3
+    square_x = pos[1] // 3
+    square_y = pos[0] // 3
     for i in range(square_y * 3, square_y * 3 + 3):
-        for j in range (square_x * 3, square_x * 3 + 3):
-            if sudoku_grid[i][j] == num and (i,j) != pos:
+        for j in range(square_x * 3, square_x * 3 + 3):
+            if sudoku_grid[i][j] == num and (i, j) != pos:
                 return False
 
     return True
@@ -61,7 +68,7 @@ def print_grid(grid):
     """
     for i in range(len(grid)):
         if i % 3 == 0 and i != 0:
-            print("- - - - - - - - - - - - -")
+            print("- - - - - - - - - - - -")
 
         for j in range(len(grid[0])):
             if j % 3 == 0 and j != 0:
@@ -82,7 +89,13 @@ def find_zero(grid):
         for j in range(len(grid[0])):
             if grid[i][j] == 0:
                 return (i, j)
-#if no zeros are left on the grid 
+# if no zeros are left on the grid
     return None
 
+
+print("-------------------------------")
+print_grid(sudoku_grid)
+print("-------------------------------")
+solve(sudoku_grid)
+print("---------------------------------")
 print_grid(sudoku_grid)
