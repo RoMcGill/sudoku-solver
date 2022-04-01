@@ -45,8 +45,8 @@ def correct(sudoku_grid, num, pos):
             return False
 
     # check square
-    square x = pos [1] // 3
-    square y = pos [0] // 3
+    square_x = pos [1] // 3
+    square_y = pos [0] // 3
     for i in range(square_y * 3, square_y * 3 + 3):
         for j in range (square_x * 3, square_x * 3 + 3):
             if sudoku_grid[i][j] == num and (i,j) != pos:
