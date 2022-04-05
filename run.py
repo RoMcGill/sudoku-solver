@@ -1,11 +1,20 @@
 import pyfiglet
+import curses
+from curses import wrapper
+
+def main(stdscr):
+    stdscr.clear()
+
+wrapper(main)
+
 
 txt = pyfiglet.figlet_format("Sudoku Solver", font="big")
 solved = pyfiglet.figlet_format("solved", font="big")
 print(txt)
 
 
-
+print("please enter your sudoku numbers like the example below.")
+print("zero = blank space on your sudoku board.")
 # sudoku board to solve
 sudoku_grid = [
     [0, 0, 1, 0, 0, 0, 0, 0, 7],
@@ -20,10 +29,7 @@ sudoku_grid = [
 ]
 
 
-
-
-
-def solve(sudoku_grid):
+def solve(sudoku_grid): 
     """
     function to loop through numbers 1 to 9 and call the solve function,
     if sove function return false, reset current number to zero and try again
@@ -73,23 +79,25 @@ def correct(sudoku_grid, num, pos):
     return True
 
 
+
 def print_grid(grid):
     """
     function to print sudoku grid
     """
     for i in range(len(grid)):
         if i % 3 == 0 and i != 0:
-            print("- - - - - - - - - - - -")
+            print("--------------------")
 
         for j in range(len(grid[0])):
             if j % 3 == 0 and j != 0:
-                print(" | ", end="")
+                print("|", end="")
 
             if j == 8:
                 print(grid[i][j])
             else:
                 print(str(grid[i][j]) + " ", end="")
 
+print_grid(sudoku_grid)
 
 def find_zero(grid):
     """
@@ -104,9 +112,12 @@ def find_zero(grid):
     return None
 
 
-print("your puzzel.------------------------")
-print_grid(sudoku_grid)
-solve(sudoku_grid)
-print(solved)
-print("solution.---------------------")
-print_grid(sudoku_grid)
+#print("your puzzel.------------------------")
+users_grid = input('type your grid here:')
+print_grid(users_grid)
+print('your Grid, ' + users_grid)
+#solve(users_grid)
+
+#print(solved)
+#print("solution.---------------------")
+#print_grid(sudoku_grid)
