@@ -1,3 +1,11 @@
+import pyfiglet
+
+txt = pyfiglet.figlet_format("Sudoku Solver", font="big")
+solved = pyfiglet.figlet_format("solved", font="big")
+print(txt)
+
+
+
 # sudoku board to solve
 sudoku_grid = [
     [0, 0, 1, 0, 0, 0, 0, 0, 7],
@@ -96,9 +104,9 @@ def find_zero(grid):
     return None
 
 
-print("-------------------------------")
+print("your puzzel.------------------------")
 print_grid(sudoku_grid)
-print("-------------------------------")
 solve(sudoku_grid)
-print("---------------------------------")
+print(solved)
+print("solution.---------------------")
 print_grid(sudoku_grid)
