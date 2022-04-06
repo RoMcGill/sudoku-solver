@@ -1,5 +1,10 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import pyfiglet
+
+txt = pyfiglet.figlet_format("Sudoku Solver", font="big")
+solved = pyfiglet.figlet_format("solved", font="big")
+print(txt)
 
 SCOPE = [    
     "https://www.googleapis.com/auth/spreadsheets",
@@ -16,33 +21,65 @@ name = SHEET.worksheet('name')
 email = SHEET.worksheet('email')
 name_data = name.get_all_values()
 email_data = email.get_all_values()
+puzzel_data = email.get_all_values()
 
-print(name_data)
-print(email_data)
+def get_name_data():
+    """
+    gets name data from sheet
+    """
+    print("please enter your name")
+    data_str1 = input("enter your name here: ")
+
+def get_email_data():
+    """
+    gets email data from sheet
+    """
+    print("please enter your email")
+    data_str1 = input("enter your email here: ")
+
+def get_puzzel_data():
+    """
+    gets puzzel data from sheet
+    """
+    print("please enter your sudoku numbers")
+    print("numbers should be in in rows of 9 numbers separated by commas, zero should represent an empty space")
+    print("Example: [0,1,5,3,5,3,0,0,2]")
+
+    data_str1 = input("enter your first line here: ")
+    data_str2 = input("enter your second line here: ")
+    data_str3 = input("enter your third line here: ")
+    data_str4 = input("enter your forth line here: ")
+    data_str5 = input("enter your fifth line here: ")
+    data_str6 = input("enter your sixth line here: ")
+    data_str7 = input("enter your seventh line here: ")
+    data_str8 = input("enter your eighth line here: ")
+    data_str9 = input("enter your ninth line here: ")
 
 
-import pyfiglet
-
-txt = pyfiglet.figlet_format("Sudoku Solver", font="big")
-solved = pyfiglet.figlet_format("solved", font="big")
-print(txt)
+get_name_data()
+get_email_data()
+get_puzzel_data()
 
 
 
-print("please enter your sudoku numbers like the example below.")
-print("zero = blank space on your sudoku board.")
+
+
+
+
+#print("please enter your sudoku numbers like the example below.")
+#print("zero = blank space on your sudoku board.")
 # sudoku board to solve
-sudoku_grid = [
-    [0, 0, 1, 0, 0, 0, 0, 0, 7],
-    [0, 9, 0, 0, 0, 6, 1, 3, 0],
-    [0, 0, 0, 3, 0, 0, 0, 0, 4],
-    [0, 6, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 9, 7, 0, 0, 5, 8, 0],
-    [0, 0, 5, 8, 0, 0, 3, 9, 0],
-    [8, 0, 0, 0, 0, 7, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 4, 0]
-]
+#sudoku_grid = [
+#    [0, 0, 1, 0, 0, 0, 0, 0, 7],
+#    [0, 9, 0, 0, 0, 6, 1, 3, 0],
+#    [0, 0, 0, 3, 0, 0, 0, 0, 4],
+#    [0, 6, 0, 0, 2, 0, 0, 0, 0],
+#    [0, 0, 0, 0, 0, 0, 0, 0, 1],
+#    [0, 0, 9, 7, 0, 0, 5, 8, 0],
+#    [0, 0, 5, 8, 0, 0, 3, 9, 0],
+#    [8, 0, 0, 0, 0, 7, 0, 0, 0],
+#    [0, 0, 0, 0, 0, 0, 0, 4, 0]
+#]
 
 
 def solve(sudoku_grid): 
@@ -113,7 +150,7 @@ def print_grid(grid):
             else:
                 print(str(grid[i][j]) + " ", end="")
 
-print_grid(sudoku_grid)
+#print_grid(sudoku_grid)
 
 def find_zero(grid):
     """
@@ -129,9 +166,9 @@ def find_zero(grid):
 
 
 #print("your puzzel.------------------------")
-users_grid = input('type your grid here:')
-print_grid(users_grid)
-print('your Grid, ' + users_grid)
+#users_grid = input('type your grid here:')
+#print_grid(users_grid)
+#print('your Grid, ' + users_grid)
 #solve(users_grid)
 
 #print(solved)
