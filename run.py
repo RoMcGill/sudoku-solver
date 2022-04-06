@@ -17,11 +17,36 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('sudoku')
 
+
+
 name = SHEET.worksheet('name')
 email = SHEET.worksheet('email')
+puzzel = SHEET.worksheet('puzzel')
 name_data = name.get_all_values()
 email_data = email.get_all_values()
-puzzel_data = email.get_all_values()
+puzzel_data = puzzel.get_all_values()
+
+#validation
+
+def validate_data(values):
+    """
+    converts string value to integers
+    error if there are less than 9 numbers 
+    """
+    try:
+        [int(value) for value in values]
+        if len(values) != 9:
+            raise ValueError(
+                f"exactly 9 values required, you provided {len(values)}"
+        
+
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        get_puzzel_data()
+        return False
+
+    return True
 
 def get_name_data():
     """
@@ -37,29 +62,66 @@ def get_email_data():
     print("please enter your email")
     data_str1 = input("enter your email here: ")
 
-def get_puzzel_data():
-    """
-    gets puzzel data from sheet
-    """
-    print("please enter your sudoku numbers")
-    print("numbers should be in in rows of 9 numbers separated by commas, zero should represent an empty space")
-    print("Example: [0,1,5,3,5,3,0,0,2]")
+#def get_puzzel_data():
 
-    data_str1 = input("enter your first line here: ")
-    data_str2 = input("enter your second line here: ")
-    data_str3 = input("enter your third line here: ")
-    data_str4 = input("enter your forth line here: ")
-    data_str5 = input("enter your fifth line here: ")
-    data_str6 = input("enter your sixth line here: ")
-    data_str7 = input("enter your seventh line here: ")
-    data_str8 = input("enter your eighth line here: ")
-    data_str9 = input("enter your ninth line here: ")
+    while True:
+        """
+        gets puzzel data from sheet
+        """
+        print("please enter your sudoku numbers")
+        print("numbers should be in in rows of 9 numbers separated by commas, zero should represent an empty space")
+        print("Example: [0,1,5,3,5,3,0,0,2]")
+
+        data_str = input("enter your first line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your second line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your third line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your forth line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your fifth line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your sixth line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your seventh line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your eighth line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+        data_str = input("enter your ninth line here: ")
+        data_str = data_str.split(",")
+        validate_data(data_str)
+
+        if validate_data(data_str):
+            print("data is valid")
+            break
+
+#def update_puzzel_worksheet(data):
+    """
+    Update puzzel worksheet, add new row with the list data provided
+    """
+    print("Updating puzzel worksheet...\n")
+    puzzel_worksheet = SHEET.worksheet("puzzel")
+    puzzel_worksheet.append_row(data)
+    print("puzzel worksheet updated successfully.\n")
+
+
+#data = get_puzzel_data()
+
+#update_puzzel_worksheet(puzzel_data)
+
 
 
 get_name_data()
 get_email_data()
-get_puzzel_data()
-
 
 
 
