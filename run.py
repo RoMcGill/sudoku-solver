@@ -12,11 +12,13 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('sudoku')
 
-sales = SHEET.worksheet('sudoku')
+name = SHEET.worksheet('name')
+email = SHEET.worksheet('email')
+name_data = name.get_all_values()
+email_data = email.get_all_values()
 
-data = sales .get_all_values()
-
-print(data)
+print(name_data)
+print(email_data)
 
 
 import pyfiglet
