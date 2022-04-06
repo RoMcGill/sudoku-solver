@@ -1,11 +1,5 @@
+
 import pyfiglet
-import curses
-from curses import wrapper
-
-def main(stdscr):
-    stdscr.clear()
-
-wrapper(main)
 
 
 txt = pyfiglet.figlet_format("Sudoku Solver", font="big")
