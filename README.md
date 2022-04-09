@@ -1,3 +1,14 @@
+next step get name, get email
+return data from sheet,
+solve data
+link puzzel to name and email,
+do readme flow chart
+
+
+
+
+
+
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
 Welcome RoMcGill,
