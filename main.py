@@ -23,6 +23,8 @@ def get_puzzel_data():
     via the terminal, which must be a string of 9 numbers separated
     by commas. The loop will repeatedly request data, until it is valid.
     """
+
+    count = 0
     while True:
         print("Please enter your puzzel data.")
         print("Data should be 9 numbers, separated by commas.")
@@ -30,15 +32,20 @@ def get_puzzel_data():
 
         data_str = input("Enter your data here: ")
 
-
-
         puzzel_data = data_str.split(",")
 
         if validate_data(puzzel_data):
             print("puzzel is valid!")
-            break
+            count = count + 1
 
-    return puzzel_data
+        update_puzzel_worksheet(puzzel_data)
+        print(count)
+
+        if count == 9:
+            break
+            
+
+    
 
 
 def validate_data(values):
@@ -64,10 +71,11 @@ def update_puzzel_worksheet(data):
     """
     Update puzzel worksheet, add new row with the list data provided
     """
-    get_puzzel_data()
+    
     print("Updating puzzel worksheet...\n")
     puzzel_worksheet = SHEET.worksheet("puzzel")
     puzzel_worksheet.append_row(data)
+
 
     print("puzzel worksheet updated successfully.\n")
 
@@ -75,9 +83,7 @@ def update_puzzel_worksheet(data):
 
 
 def main():
-    data = get_puzzel_data()
-    puzzel_data = [int(num) for num in data]
-    update_puzzel_worksheet(puzzel_data)
+    get_puzzel_data()
 
 txt = pyfiglet.figlet_format("Sudoku Solver", font="big")
 solved = pyfiglet.figlet_format("solved", font="big")
