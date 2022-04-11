@@ -14,16 +14,31 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('project3')
-ws = SHEET.worksheet('puzzel') 
+ws = SHEET.worksheet('puzzel')
+name_worksheet = SHEET.worksheet('name')
 
 def get_name_data():
-    print("Please enter your name.")
-    data_str = input("Enter your name here: ")
-  
-    update_name_worksheet(name_data)
+    """
+    Get name figures input from the user.
+    Run a while loop to collect a valid string of data from the user
+    via the terminal, which must be a string of 6 numbers separated
+    by commas. The loop will repeatedly request data, until it is valid.
+    """
+    print("Please enter your name .")
+   
+   
+
+    data_str = input("Enter your data here: ")
+
+    
+    
+
     
 
 def update_name_worksheet(data):
+    """
+    Update name worksheet, add new row with the list data provided
+    """
     print("Updating name worksheet...\n")
     name_worksheet = SHEET.worksheet("name")
     name_worksheet.append_row(data)
@@ -184,13 +199,14 @@ def find_zero(grid):
 
 
 def main():
-    
-    get_puzzel_data()
-    grid = ws.get('A1:I9')
-    print_grid(grid)
-    solve(grid)
-    print('solving')
-    print_grid(grid)
+    get_name_data()
+    update_name_worksheet(data_str)
+    #get_puzzel_data()
+    #grid = ws.get('A1:I9')
+    #print_grid(grid)
+    #solve(grid)
+    #print('solving')
+    #print_grid(grid)
     
 
 
