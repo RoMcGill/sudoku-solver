@@ -26,10 +26,10 @@ def get_name_data():
     """
     print("Please enter your name .")
    
-   
-
     data_str = input("Enter your data here: ")
+    
 
+    update_name_worksheet(name_data)
     
     
 
@@ -59,7 +59,7 @@ def get_puzzel_data():
     while True:
         print("Please enter your puzzel data.")
         print("Data should be 9 numbers, separated by commas.")
-        print("Example: 1,0,0,4,7,3,9,8,7,\n")
+        print("Example: 1,0,0,4,7,3,9,8,7\n")
 
         data_str = input("Enter your data here: ")
 
@@ -113,23 +113,30 @@ def solve(grid):
     function to loop through numbers 1 to 9 and call the solve function,
     if sove function return false, reset current number to zero and try again
     """
+    print('solving')
     find = find_zero(grid)
 # if this is true the grid has been solved as the function cannot find zero
+
     if not find:
         return True
+        print('did not find zero')
     else:
         row, col = find
+        print('no zero found')
 # loop throught 1 to 9, inputing each number
     for i in range(1, 10):
+        print('looping thru')
 # if number is possible in position add it to the grid
         if correct(grid, i, (row, col)):
             grid[row][col] = i
+            print('adding numbers')
 # after possible num added, call solve function to check if correct
             if solve(grid):
                 return True
-                print('solveable!!!!')
+                print_grid(grid)
 # if the solve function dose not return true reset the last number
             grid[row][col] = 0
+            print('trying new number')
 # num = zero, find zero function will run again and input more possible nums
     return False
 
@@ -137,6 +144,7 @@ def correct(grid, num, pos):
     """
     finds if the current game is correct or valid
     """
+    print('validating grid')
     # check row
     for i in range(len(grid[0])):
         if grid[pos[0]][i] == num and pos[1] != i:
@@ -161,9 +169,11 @@ def print_grid(grid):
     """
     function to print sudoku grid
     """
+    print('printing grid')
     for i in range(len(grid)):
         if i % 3 == 0 and i != 0:
-            print("-------------------------")
+            print("--------------------------------")
+            
 
         for j in range(len(grid[0])):
             if j % 3 == 0 and j != 0:
@@ -172,7 +182,7 @@ def print_grid(grid):
             if j == 8:
                 print(grid[i][j])
             else:
-                print(str(grid[i][j]) + " ", end="")
+                print(str(grid[i][j]) + " ", end="" +",")
 
 
 
@@ -185,6 +195,7 @@ def find_zero(grid):
         for j in range(len(grid[0])):
             if grid[i][j] == 0:
                 return (i, j)
+                print('found zero')
 # if no zeros are left on the grid
     return None
 
@@ -199,13 +210,12 @@ def find_zero(grid):
 
 
 def main():
-    get_name_data()
-    update_name_worksheet(data_str)
-    #get_puzzel_data()
-    #grid = ws.get('A1:I9')
-    #print_grid(grid)
-    #solve(grid)
-    #print('solving')
+    #get_name_data()
+    #update_name_worksheet(name_data)
+    get_puzzel_data()
+    grid = ws.get('A1:I9')
+    print_grid(grid)
+    solve(grid)
     #print_grid(grid)
     
 
